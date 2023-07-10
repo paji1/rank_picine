@@ -7,7 +7,7 @@ const path = require('path');
 
 
 const app = express();
-const PORT = 3000;
+const PORT = 80;
 
 const UID = 'u-s4t2ud-7125a98019064ca4d534fd584fae48ac8663a3cefbb1bbccf20165d9db545f32';
 const SECRET = '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';
@@ -88,11 +88,18 @@ async function getAllUsers() {
 // Define a route to trigger the data retrieval
 app.get('/', async (req, res) => {
   try {
-    await getAllUsers();
-	console.log("fenish fetching");
-	await require('./parse.js');
     // res.send('Users data fetched successfully!');
     res.sendFile(path.join(__dirname, 'index.html'));
+  } catch (error) {
+    res.status(500).send('An error occurred while fetching users data');
+  }
+});
+app.get('/fetch', async (req, res) => {
+  try {
+    await getAllUsers();
+	await require('./parse.js');
+	console.log("fenish fetching");
+    // res.send('Users data fetched successfully!');
   } catch (error) {
     res.status(500).send('An error occurred while fetching users data');
   }
