@@ -98,8 +98,8 @@ app.get('/fetch', async (req, res) => {
   try {
     await getAllUsers();
 	await require('./parse.js');
-	console.log("fenish fetching");
-    // res.send('Users data fetched successfully!');
+	
+    res.send('Users data fetched successfully!');
   } catch (error) {
     res.status(500).send('An error occurred while fetching users data');
   }
