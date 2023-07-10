@@ -45,7 +45,7 @@ async function getUsers(accessToken, page = 1, perPage = 100) {
         'filter[campus_id]': '16',
         'filter[cursus_id]': '9',
         'range[created_at]': '2023-01-01T13:41:00.750Z,2023-07-10T13:41:00.750Z',
-        'sort': 'level',
+        'sort': '-level',
         page,
         per_page: perPage
       }
