@@ -18,7 +18,7 @@ $(document).ready(() => {
   
   function fetchUsers() {
     console.log("first");
-    fetch('http://localhost/fetch')
+    fetch('https://server-bjte.onrender.com/fetch')
     .then(response => response.json())
     .then(data => {
       const users = data;
