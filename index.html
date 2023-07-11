@@ -1,98 +1,128 @@
-
-
+<!DOCTYPE html>
 <html>
+
 <head>
-<style>
-body {
-  background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-}
-#loadingIndicator {
-  display: none;
-  text-align: center;
-  padding: 10px;
-  background-color: #f2f2f2;
-  color: #666666;
-  font-size: 14px;
-}
-.table-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th {
-  background-color: #2c3e50;
-  color: #fff;
-  padding: 10px;
-  text-align: left;
-}
-td {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-/* CSS for hover effect */
-tr {
-  position: relative;
-  transition: background-color 0.3s;
-}
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
 
-tr:hover {
-  background-color: #f9f9f9;
-}
+    #loadingIndicator {
+      display: none;
+      text-align: center;
+      padding: 10px;
+      background-color: #f2f2f2;
+      color: #666666;
+      font-size: 14px;
+    }
 
-tr:hover td {
-  color: #333;
-}
+    .table-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-tr:hover img {
-  transform: scale(1.1);
-  transition: transform 0.3s;
-}
-td.login:hover {
-  color: #333;
-  font-weight: bold;
-  cursor: pointer;
-}
-img {
-  max-width: 50px;
-  max-height: 50px;
-  border-radius: 50%;
-}
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 10px;
+      text-align: left;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr {
+      position: relative;
+      transition: background-color 0.3s;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover td {
+      color: #333;
+    }
+
+    tr:hover img {
+      transform: scale(1.1);
+      transition: transform 0.3s;
+    }
+
+    td.login:hover {
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 50px;
+      max-height: 50px;
+      border-radius: 50%;
+    }
+
+    .search-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: #337ab7;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
   <div class="table-container">
-    <table  id="userTable" >
-      <tr>
-        <th>rank </th>
-        <th>Login</th>
-        <th>Level</th>
-        <th>Image</th>
-      </tr>
-      <tbody>
-        
-        <!-- User data will be populated here -->
-      </tbody>
-    </table>
-  <div id="loadingIndicator">Loading...</div>
-
-
+    
+    <table >
+      <newtr>
+        <th>Rank</th>
+      <th>Login</th>
+      <th>Level</th>
+      <th>Image</th>
+      <newtr>
+      </table>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by name or lastname or login">
+      </div>
+      <table id="userTable">
+        <tbody>
+          <!-- User data will be populated here -->
+        </tbody>
+      </table>
+    <div id="loadingIndicator">Loading...</div>
   </div>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="/script.js"></script>
 </body>
+
 </html>

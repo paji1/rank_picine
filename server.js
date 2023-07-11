@@ -18,7 +18,7 @@ const SECRET = 's-s4t2ud-8e4a1647de47c700f9ce9fcbd389362911b265c4d678f2a2f33ef2e
 const CAMPUS_ID = '16';
 const CURSUS_ID = '9';
 const RANGE_CREATED_AT = '2023-01-01T13:41:00.750Z,2023-07-10T13:41:00.750Z';
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 20;
 let usersData = []; // Variable to store the fetched users data
 
 async function getAccessToken() {
@@ -108,6 +108,7 @@ setInterval(fetchUsersInBackground, 10 * 60 * 1000);
 // Serve the users data to the client
 app.get('/fetch', (req, res) => {
   try {
+    // console.log(usersData.length);
     res.send(usersData);
   } catch (error) {
     console.error('Error:', error.message);
