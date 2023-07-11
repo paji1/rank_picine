@@ -77,8 +77,9 @@ async function fetchAllUsers() {
     while (true) {
       const response = await getUsers(accessToken, page);
       usersData.push(...response);
-
+      
       if (response.length < PAGE_SIZE) {
+        usersData.push(...response);
         break; // Stop fetching if the response length is less than PAGE_SIZE
       }
 
@@ -95,6 +96,7 @@ async function fetchAllUsers() {
 
 function fetchUsersInBackground() {
   fs.truncate('usersData.json', 0, function(){console.log('done')})
+  usersData = [];
 
   fetchAllUsers().catch((error) => {
     console.error('Error in background task:', error.message);
@@ -105,12 +107,12 @@ function fetchUsersInBackground() {
 fetchUsersInBackground();
 
 // Run the background task to fetch users' data periodically every 1 hour
-setInterval(fetchUsersInBackground, 10 * 60 * 1000);
+setInterval(fetchUsersInBackground, 4 * 60 * 1000);
 
 // Serve the users data to the client
 app.get('/fetch', (req, res) => {
   try {
-    // console.log(usersData.length);
+    console.log(usersData.length);
     res.send(usersData);
   } catch (error) {
     console.error('Error:', error.message);
