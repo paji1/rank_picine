@@ -8,7 +8,7 @@ $(document).ready(() => {
 
   function fetchUsers() {
     console.log("first");
-    $.get(`http://localhost/fetch`, (response) => {
+    $.get(`https://server-bjte.onrender.com/fetch`, (response) => {
       const users = response;
       users.forEach(function (user) {
         i++;
