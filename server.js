@@ -1,20 +1,29 @@
-// server.js
-const express = require('express');
 const axios = require('axios');
 const fs = require('fs');
-const { parse } = require('path');
 const path = require('path');
-
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
+
 const PORT = 80;
+
+const API_URL = 'https://api.intra.42.fr';
+const ACCESS_TOKEN_URL = `${API_URL}/oauth/token`;
+const CURSUS_USERS_URL = `${API_URL}/v2/cursus_users`;
 
 const UID = 'u-s4t2ud-7125a98019064ca4d534fd584fae48ac8663a3cefbb1bbccf20165d9db545f32';
 const SECRET = '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';
+const CAMPUS_ID = '16';
+const CURSUS_ID = '9';
+const RANGE_CREATED_AT = '2023-01-01T13:41:00.750Z,2023-07-10T13:41:00.750Z';
+const PAGE_SIZE = 100;
+let usersData = []; // Variable to store the fetched users data
 
 async function getAccessToken() {
   try {
-    const response = await axios.post('https://api.intra.42.fr/oauth/token', null, {
+    const response = await axios.post(ACCESS_TOKEN_URL, null, {
       params: {
         grant_type: 'client_credentials',
         client_id: UID,
@@ -33,24 +42,22 @@ async function getAccessToken() {
   }
 }
 
-async function getUsers(accessToken, page = 1, perPage = 100) {
-  const apiUrl = 'https://api.intra.42.fr/v2/cursus_users';
-  
+async function getUsers(accessToken, page = 1) {
   try {
-    const response = await axios.get(apiUrl, {
+    const response = await axios.get(CURSUS_USERS_URL, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       },
       params: {
-        'filter[campus_id]': '16',
-        'filter[cursus_id]': '9',
-        'range[created_at]': '2023-01-01T13:41:00.750Z,2023-07-10T13:41:00.750Z',
+        'filter[campus_id]': CAMPUS_ID,
+        'filter[cursus_id]': CURSUS_ID,
+        'range[created_at]': RANGE_CREATED_AT,
         'sort': '-level',
         page,
-        per_page: perPage
+        per_page: PAGE_SIZE
       }
     });
-  
+
     if (response.status === 200) {
       return response.data;
     } else {
@@ -62,49 +69,56 @@ async function getUsers(accessToken, page = 1, perPage = 100) {
   }
 }
 
-async function getAllUsers() {
+async function fetchAllUsers() {
   try {
     const accessToken = await getAccessToken();
-    const users = [];
     let page = 1;
-    const perPage = 100;
-  
-    let response = await getUsers(accessToken, page, perPage);
-    users.push(...response);
-  
-    while (response.length === perPage) {
+
+    while (true) {
+      const response = await getUsers(accessToken, page);
+      usersData.push(...response);
+
+      if (response.length < PAGE_SIZE) {
+        break; // Stop fetching if the response length is less than PAGE_SIZE
+      }
+
       page++;
-      response = await getUsers(accessToken, page, perPage);
-      users.push(...response);
     }
-  
-    fs.writeFileSync('usersData.json', JSON.stringify(users));
+
+    fs.writeFileSync('usersData.json', JSON.stringify(usersData));
+    console.log('Users data fetched and stored successfully!');
   } catch (error) {
     console.error('Error:', error.message);
     throw error;
   }
 }
 
-// Define a route to trigger the data retrieval
-app.get('/', async (req, res) => {
+function fetchUsersInBackground() {
+  fetchAllUsers().catch((error) => {
+    console.error('Error in background task:', error.message);
+  });
+}
+
+// Run the background task to fetch users' data initially
+fetchUsersInBackground();
+
+// Run the background task to fetch users' data periodically every 1 hour
+setInterval(fetchUsersInBackground, 10 * 60 * 1000);
+
+// Serve the users data to the client
+app.get('/fetch', (req, res) => {
   try {
-    // res.send('Users data fetched successfully!');
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.send(usersData);
   } catch (error) {
+    console.error('Error:', error.message);
     res.status(500).send('An error occurred while fetching users data');
   }
 });
-app.get('/fetch', async (req, res) => {
-  try {
-    await getAllUsers();
-	await require('./parse.js');
-	
-    res.send('Users data fetched successfully!');
-  } catch (error) {
-    res.status(500).send('An error occurred while fetching users data');
-  }
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
+app.use(express.static('public'));
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
