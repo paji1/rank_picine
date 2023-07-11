@@ -94,6 +94,8 @@ async function fetchAllUsers() {
 }
 
 function fetchUsersInBackground() {
+  fs.truncate('usersData.json', 0, function(){console.log('done')})
+
   fetchAllUsers().catch((error) => {
     console.error('Error in background task:', error.message);
   });
