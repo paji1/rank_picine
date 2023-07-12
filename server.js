@@ -2,6 +2,8 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
+
 const cors = require('cors');
 
 const app = express();
@@ -13,8 +15,8 @@ const API_URL = 'https://api.intra.42.fr';
 const ACCESS_TOKEN_URL = `${API_URL}/oauth/token`;
 const CURSUS_USERS_URL = `${API_URL}/v2/cursus_users`;
 
-const UID = 'u-s4t2ud-7125a98019064ca4d534fd584fae48ac8663a3cefbb1bbccf20165d9db545f32';
-const SECRET = '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';
+const UID = 'u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b';
+const SECRET = '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';
 const CAMPUS_ID = '16';
 const CURSUS_ID = '9';
 const RANGE_CREATED_AT = '2023-01-01T13:41:00.750Z,2023-07-10T13:41:00.750Z';
@@ -41,6 +43,7 @@ async function getAccessToken() {
     throw error;
   }
 }
+
 
 async function getUsers(accessToken, page = 1) {
   try {
@@ -119,12 +122,40 @@ app.get('/fetch', (req, res) => {
     res.status(500).send('An error occurred while fetching users data');
   }
 });
+
+
+app.get('/callback', async (req, res) => {
+
+  const code = req.query.code;
+
+  try {
+    const response = await axios.post('https://api.intra.42.fr/oauth/token', null, {
+      params: {
+        grant_type: 'authorization_code',
+        client_id: UID,
+        client_secret: SECRET,
+        code: code,
+        // redirect_uri: redirectUri
+      }
+    });
+
+    const accessToken = response.data.access_token;
+    res.sendFile(__dirname + '/index.html');
+    // Use the obtained access token for further API requests
+    // ...
+    res.send('Authorization successful!');
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).send('An error occurred during authorization.');
+  }
+  // No error occurred, continue with the normal flow
+  // ...
+});
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.redirect('https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2F&response_type=code');
 });
 
 app.use(express.static('public'));
-// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
