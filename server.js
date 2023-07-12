@@ -131,15 +131,16 @@ app.get('/callback', async (req, res) => {
   try {
     const response = await axios.post('https://api.intra.42.fr/oauth/token', null, {
       params: {
-        grant_type: 'authorization_code',
+        grant_type: "authorization_code",
         client_id: UID,
         client_secret: SECRET,
         code: code,
-        // redirect_uri: redirectUri
+        redirect_uri: 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code'
       }
     });
 
-    const accessToken = response.data.access_token;
+    // const accessToken = response.data.access_token;
+    console.log("hello");
     res.sendFile(__dirname + '/index.html');
     // Use the obtained access token for further API requests
     // ...
