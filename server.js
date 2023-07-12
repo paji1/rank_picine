@@ -127,6 +127,7 @@ app.get('/fetch', (req, res) => {
 app.get('/callback', async (req, res) => {
 
   const code = req.query.code;
+  console.log(code);
 
   try {
     const response = await axios.post('https://api.intra.42.fr/oauth/token', null, {
