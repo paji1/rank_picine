@@ -143,11 +143,11 @@ app.get('/callback', async (req, res) => {
     res.sendFile(__dirname + '/index.html');
     // Use the obtained access token for further API requests
     // ...
-    res.send('Authorization successful!');
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).send('An error occurred during authorization.');
   }
+  res.sendFile(__dirname + '/index.html');
   // No error occurred, continue with the normal flow
   // ...
 });
