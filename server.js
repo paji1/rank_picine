@@ -60,6 +60,7 @@ app.get('/callback', async (req, res) => {
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).send('An error occurred during authorization.');
+    res.sendFile(__dirname + '/error.html');
   }
 });
 
