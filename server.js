@@ -3,8 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
-const passport = require('passport');
-const OAuth2Strategy = require('passport-oauth2').Strategy;
+
 
 const cors = require('cors');
 
@@ -28,7 +27,9 @@ let usersData = []; // Variable to store the fetched users data
 
 const REDIRECT_URI = 'https://server-bjte.onrender.com/callback';
 
+
 // Configure express session
+
 app.use(session({
   secret: 'your_she23ecret_key',
   resave: false,
@@ -51,6 +52,7 @@ app.get('/callback', async (req, res) => {
 
     const accessToken = response.data.access_token;
     
+    req.session.accessToken = accessToken;
     // Use the obtained access token for further API requests
     // ...
     res.redirect('/');
@@ -83,7 +85,8 @@ async function getAccessToken() {
   }
 }
 app.get('/', (req, res) => {
-  if (req.session.authorized) {
+  if(req.session.accessToken){
+    console.log(req.session);
     // User is already authorized, redirect to another route or send response
     res.sendFile(__dirname + '/index.html');
   } else {
