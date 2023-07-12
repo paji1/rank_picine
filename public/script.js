@@ -18,7 +18,7 @@ $(document).ready(() => {
   
   function fetchUsers() {
     console.log("first");
-    fetch('https://server-bjte.onrender.com//fetch')
+    fetch('https://server-bjte.onrender.com/fetch')
     .then(response => response.json())
     .then(data => {
       const users = data;
@@ -47,8 +47,6 @@ $(document).ready(() => {
           
           usersData.push(user);
           fetchedatalogin.push(login);
-          if (login == "mmountac")
-            console.log("one");
           tr.append(i_Td, loginTd, levelTd, imageTd);
           tbody.append(tr);
         }
