@@ -3,7 +3,11 @@ let i = 0;
 function redirectTo(url) {
   window.location.href = url;
 }
-
+function roundNumber(number, precision) {
+  const factor = Math.pow(10, precision);
+  const roundedValue = Math.round(number * factor) / factor;
+  return roundedValue.toFixed(precision);
+}
 $(document).ready(() => {
   $('#toggleSearchBtn').click(() => {
     $('#searchInput').toggle();
@@ -29,7 +33,7 @@ $(document).ready(() => {
         const login = user.user.login;
 
         if (!usersData.includes(login)) {
-          const level = user.level;
+          const level = roundNumber(user.level, 2);
           let image_link = user.user.image.versions.small;
           if (image_link == null) {
             image_link = "https://img.freepik.com/free-icon/user_318-563642.jpg";
@@ -84,7 +88,8 @@ $(document).ready(() => {
     // Render the filtered users in the table
     filteredUsers.forEach((user, index) => {
       const login = user.user.login;
-      const level = user.level;
+      const level = roundNumber(user.level, 2);
+
       const image_link = user.user.image.versions.small;
 
       if (!fetchedUsers.includes(login)) {
