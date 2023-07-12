@@ -135,7 +135,6 @@ app.get('/callback', async (req, res) => {
         client_id: UID,
         client_secret: SECRET,
         code: code,
-        redirect_uri: 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code'
       }
     });
 
