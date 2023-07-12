@@ -127,7 +127,7 @@ app.get('/fetch', (req, res) => {
 app.get('/callback', async (req, res) => {
 
   const code = req.query.code;
-  console.log(code);
+  console.log(code)
 
   try {
     const response = await axios.post('https://api.intra.42.fr/oauth/token', null, {
@@ -136,6 +136,7 @@ app.get('/callback', async (req, res) => {
         client_id: UID,
         client_secret: SECRET,
         code: code,
+        redirect_uri : 'https://server-bjte.onrender.com', 
       }
     });
 
