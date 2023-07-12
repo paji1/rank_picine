@@ -30,7 +30,7 @@ const REDIRECT_URI = 'https://server-bjte.onrender.com/callback';
 
 // Configure express session
 app.use(session({
-  secret: 'your_secret_key',
+  secret: 'your_she23ecret_key',
   resave: false,
   saveUninitialized: true,
 }));
@@ -53,8 +53,8 @@ app.get('/callback', async (req, res) => {
     
     // Use the obtained access token for further API requests
     // ...
+    res.redirect('/');
     
-    res.sendFile(__dirname + '/index.html');
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).send('An error occurred during authorization.');
@@ -83,7 +83,13 @@ async function getAccessToken() {
   }
 }
 app.get('/', (req, res) => {
-  res.redirect(`https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code`);
+  if (req.session.authorized) {
+    // User is already authorized, redirect to another route or send response
+    res.sendFile(__dirname + '/index.html');
+  } else {
+    // User is not authorized, initiate the OAuth2 flow
+    res.redirect(`https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code`);
+  }
 });
 
 async function getUsers(accessToken, page = 1) {
