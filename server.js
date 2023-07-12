@@ -80,7 +80,7 @@ async function fetchAllUsers() {
     while (true) {
       const response = await getUsers(accessToken, page);
       usersData.push(...response);
-
+      
       if (response.length < PAGE_SIZE) {
         usersData.push(...response);
         break; // Stop fetching if the response length is less than PAGE_SIZE
@@ -98,7 +98,7 @@ async function fetchAllUsers() {
 }
 
 function fetchUsersInBackground() {
-  fs.truncate('usersData.json', 0, function () { console.log('done') })
+  fs.truncate('usersData.json', 0, function(){console.log('done')})
   usersData = [];
 
   fetchAllUsers().catch((error) => {
@@ -150,21 +150,8 @@ app.get('/callback', async (req, res) => {
   // No error occurred, continue with the normal flow
   // ...
 });
-
 app.get('/', (req, res) => {
-  const authorizationUrl = `https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2F&response_type=code`;
-  res.send(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>OAuth2 Authorization</title>
-        </head>
-        <body>
-          <h1>OAuth2 Authorization</h1>
-          <a href="${authorizationUrl}">Authorize</a>
-        </body>
-      </html>
-    `);
+  res.redirect('https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code');
 });
 
 app.use(express.static('public'));
