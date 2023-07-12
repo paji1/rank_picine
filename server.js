@@ -25,7 +25,7 @@ const PAGE_SIZE = 20;
 let usersData = []; // Variable to store the fetched users data
 
 
-const REDIRECT_URI = 'https://server-bjte.onrender.com/callback';
+const REDIRECT_URI = 'https://1337rank.live/callback';
 
 
 // Configure express session
@@ -91,7 +91,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
   } else {
     // User is not authorized, initiate the OAuth2 flow
-    res.redirect(`https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code`);
+    res.redirect(`https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2F1337rank.live%2Fcallback&response_type=code`);
   }
 });
 
