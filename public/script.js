@@ -49,6 +49,7 @@ $(document).ready(() => {
           const levelTd = $('<td>').text(level);
           const imageTd = $('<td>').append($('<img>').attr('src', image_link));
           
+          user.id = i;
           usersData.push(user);
           fetchedatalogin.push(login);
           tr.append(i_Td, loginTd, levelTd, imageTd);
@@ -63,15 +64,15 @@ $(document).ready(() => {
   
   searchInput.on('input', () => {
     const searchTerm = searchInput.val().trim().toLowerCase();
-    if (searchTerm.length > 0) {
+    // if (searchTerm.length > 0) {
       filterUsers(searchTerm);
-    }
+    // }
   });
 
   function filterUsers(searchTerm) {
+    let fetchedUsers = [];
     // Clear the table body
     tbody.empty();
-    let fetchedUsers = [];
 
     // Filter the users based on the search term
     console.log(usersData);
@@ -97,7 +98,7 @@ $(document).ready(() => {
           const url = 'https://profile.intra.42.fr/users/' + login; // Replace with your desired URL
           redirectTo(url);
         });
-        const i_Td = $('<td>').text(index + 1);
+        const i_Td = $('<td>').text(user.id);
         const loginTd = $('<td>').text(login).addClass('login');
         const levelTd = $('<td>').text(level);
         const imageTd = $('<td>').append($('<img>').attr('src', image_link));
