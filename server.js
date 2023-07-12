@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
+const passport = require('passport');
+const OAuth2Strategy = require('passport-oauth2').Strategy;
 
 const cors = require('cors');
 
@@ -22,6 +24,49 @@ const CURSUS_ID = '9';
 const RANGE_CREATED_AT = '2023-01-01T13:41:00.750Z,2023-07-10T13:41:00.750Z';
 const PAGE_SIZE = 20;
 let usersData = []; // Variable to store the fetched users data
+
+
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport serialization/deserialization
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
+
+// Configure the OAuth2 strategy
+passport.use(new OAuth2Strategy({
+  authorizationURL: 'https://api.intra.42.fr/oauth/authorize',
+  tokenURL: 'https://api.intra.42.fr/oauth/token',
+  clientID: UID,
+  clientSecret: SECRET,
+  callbackURL: '/callback',
+}, (accessToken, refreshToken, profile, done) => {
+  // Handle the access token and profile data
+  // ...
+  done(null, profile);
+}));
+
+// Define the callback route
+app.get('/callback', passport.authenticate('oauth2', { failureRedirect: '/login' }), (req, res) => {
+  // Redirect or respond with success message
+  res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/', passport.authenticate('oauth2'));
+
+
 
 async function getAccessToken() {
   try {
@@ -123,38 +168,6 @@ app.get('/fetch', (req, res) => {
   }
 });
 
-
-app.get('/callback', async (req, res) => {
-
-  const code = req.query.code;
-  console.log(code)
-
-  try {
-    const response = await axios.post('https://api.intra.42.fr/oauth/token', null, {
-      params: {
-        grant_type: "authorization_code",
-        client_id: UID,
-        client_secret: SECRET,
-        code: code,
-        redirect_uri : 'https://server-bjte.onrender.com', 
-      }
-    });
-
-    // const accessToken = response.data.access_token;
-    console.log("hello");
-    res.sendFile(__dirname + '/index.html');
-    // Use the obtained access token for further API requests
-    // ...
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).send('An error occurred during authorization.');
-  }
-  // No error occurred, continue with the normal flow
-  // ...
-});
-app.get('/', (req, res) => {
-  res.redirect('https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=https%3A%2F%2Fserver-bjte.onrender.com%2Fcallback&response_type=code');
-});
 
 app.use(express.static('public'));
 app.listen(PORT, () => {
