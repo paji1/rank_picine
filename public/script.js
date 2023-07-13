@@ -36,7 +36,7 @@ $(document).ready(() => {
           const level = roundNumber(user.level, 2);
           let image_link = user.user.image.versions.small;
           if (image_link == null) {
-            image_link = "https://img.freepik.com/free-icon/user_318-563642.jpg";
+            image_link = "./img/default.avif";
           }
           
           const tr = $('<tr>').click(() => {
