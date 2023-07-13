@@ -97,6 +97,9 @@
     }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/btn.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
@@ -105,9 +108,9 @@
     <table >
       <newtr>
         <th>Rank</th>
-      <th>Login</th>
-      <th>Level</th>
-      <th>Image</th>
+        <th>Login</th>
+        <th>Level</th>
+        <th>Image</th>
       <newtr>
       </table>
       <div class="search-container">
@@ -118,11 +121,14 @@
           <!-- User data will be populated here -->
         </tbody>
       </table>
-    <div id="loadingIndicator">Loading...</div>
-  </div>
+      
+      <div id="loadingIndicator">Loading...</div>
+      <button onclick="topFunction()" id="myBtn"  title="Go to top"></button>
+    </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="/script.js"></script>
+  <script type="text/javascript" src="/btn.js"></script>
 </body>
 
 </html>
