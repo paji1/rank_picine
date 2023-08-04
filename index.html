@@ -45,7 +45,7 @@
       border-bottom: 1px solid #ccc;
     }
 
-    tr:nth-child(even) {
+    tr:not(.validated-user):nth-child(even) {
       background-color: #f9f9f9;
     }
 
@@ -71,6 +71,10 @@
       color: #333;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .validated-user {
+      background-color: lightgreen;
     }
 
     img {
@@ -104,27 +108,27 @@
 
 <body>
   <div class="table-container">
-    
-    <table >
+
+    <table>
       <newtr>
         <th>Rank</th>
         <th>Login</th>
-        <th>Level</th>
+        <th>Mark</th>
         <th>Image</th>
-      <newtr>
-      </table>
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search by name or lastname or login">
-      </div>
-      <table id="userTable">
-        <tbody>
-          <!-- User data will be populated here -->
-        </tbody>
-      </table>
-      
-      <div id="loadingIndicator">Loading...</div>
-      <button onclick="topFunction()" id="myBtn"  title="Go to top"></button>
+        <newtr>
+    </table>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search by name or lastname or login">
     </div>
+    <table id="userTable">
+      <tbody>
+        <!-- User data will be populated here -->
+      </tbody>
+    </table>
+
+    <div id="loadingIndicator">Loading...</div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top"></button>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="/script.js"></script>

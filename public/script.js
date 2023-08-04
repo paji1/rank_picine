@@ -22,7 +22,7 @@ $(document).ready(() => {
   
   function fetchUsers() {
     console.log("first");
-    fetch('https://server-bjte.onrender.com/fetch')
+    fetch('https://1337rank.live/fetch')
     .then(response => response.json())
     .then(data => {
       const users = data;
@@ -33,7 +33,7 @@ $(document).ready(() => {
         const login = user.user.login;
 
         if (!usersData.includes(login)) {
-          const level = roundNumber(user.level, 2);
+          const level = roundNumber(user.final_mark, 2);
           let image_link = user.user.image.versions.small;
           if (image_link == null) {
             image_link = "./img/default.avif";
@@ -48,7 +48,9 @@ $(document).ready(() => {
           const loginTd = $('<td>').text(login).addClass('login');
           const levelTd = $('<td>').text(level);
           const imageTd = $('<td>').append($('<img>').attr('src', image_link));
-          
+          if (user['validated?']) {
+            tr.addClass('validated-user');
+          }
           user.id = i;
           usersData.push(user);
           fetchedatalogin.push(login);
@@ -89,7 +91,7 @@ $(document).ready(() => {
     // Render the filtered users in the table
     filteredUsers.forEach((user, index) => {
       const login = user.user.login;
-      const level = roundNumber(user.level, 2);
+      const level = roundNumber(user.final_mark, 2);
 
       const image_link = user.user.image.versions.small;
 
@@ -102,11 +104,14 @@ $(document).ready(() => {
         const loginTd = $('<td>').text(login).addClass('login');
         const levelTd = $('<td>').text(level);
         const imageTd = $('<td>').append($('<img>').attr('src', image_link));
+        if (user['validated?']) {
+          tr.addClass('validated-user');
+        }
         fetchedUsers.push(login);
+
 
         tr.append(i_Td, loginTd, levelTd, imageTd);
         tbody.append(tr);
-        console.log("sone");
       }
     });
 
