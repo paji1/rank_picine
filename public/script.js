@@ -22,7 +22,7 @@ $(document).ready(() => {
   
   function fetchUsers() {
     console.log("first");
-    fetch('https://1337rank.live/fetch')
+    fetch('https://www.1337rank.live/fetch')
     .then(response => response.json())
     .then(data => {
       const users = data;
