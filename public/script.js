@@ -56,7 +56,7 @@ $(document).ready(() => {
           user.id = i;
           usersData.push(user);
           fetchedatalogin.push(login);
-          tr.append(i_Td, loginTd, levelTd, imageTd, markTd);
+          tr.append(i_Td, loginTd, levelTd, markTd,imageTd);
           tbody.append(tr);
         }
       });
@@ -114,7 +114,7 @@ $(document).ready(() => {
         fetchedUsers.push(login);
 
 
-        tr.append(i_Td, loginTd, levelTd, imageTd, markTd);
+        tr.append(i_Td, loginTd, levelTd, markTd, imageTd);
         tbody.append(tr);
       }
     });
