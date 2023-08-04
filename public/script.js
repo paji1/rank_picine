@@ -33,7 +33,8 @@ $(document).ready(() => {
         const login = user.user.login;
 
         if (!usersData.includes(login)) {
-          const level = roundNumber(user.final_mark, 2);
+          const mark = roundNumber(user.final_mark, 2);
+          const level = roundNumber(user.level, 2);
           let image_link = user.user.image.versions.small;
           if (image_link == null) {
             image_link = "./img/default.avif";
@@ -47,6 +48,7 @@ $(document).ready(() => {
           const i_Td = $('<td>').text(i);
           const loginTd = $('<td>').text(login).addClass('login');
           const levelTd = $('<td>').text(level);
+          const markTd = $('<td>').text(mark);
           const imageTd = $('<td>').append($('<img>').attr('src', image_link));
           if (user['validated?']) {
             tr.addClass('validated-user');
@@ -54,7 +56,7 @@ $(document).ready(() => {
           user.id = i;
           usersData.push(user);
           fetchedatalogin.push(login);
-          tr.append(i_Td, loginTd, levelTd, imageTd);
+          tr.append(i_Td, loginTd, levelTd, imageTd, markTd);
           tbody.append(tr);
         }
       });
@@ -91,7 +93,8 @@ $(document).ready(() => {
     // Render the filtered users in the table
     filteredUsers.forEach((user, index) => {
       const login = user.user.login;
-      const level = roundNumber(user.final_mark, 2);
+      const mark = roundNumber(user.final_mark, 2);
+      const level = roundNumber(user.level, 2);
 
       const image_link = user.user.image.versions.small;
 
@@ -103,6 +106,7 @@ $(document).ready(() => {
         const i_Td = $('<td>').text(user.id);
         const loginTd = $('<td>').text(login).addClass('login');
         const levelTd = $('<td>').text(level);
+        const markTd = $('<td>').text(mark);
         const imageTd = $('<td>').append($('<img>').attr('src', image_link));
         if (user['validated?']) {
           tr.addClass('validated-user');
@@ -110,7 +114,7 @@ $(document).ready(() => {
         fetchedUsers.push(login);
 
 
-        tr.append(i_Td, loginTd, levelTd, imageTd);
+        tr.append(i_Td, loginTd, levelTd, imageTd, markTd);
         tbody.append(tr);
       }
     });
