@@ -9,6 +9,24 @@ function roundNumber(number, precision) {
   return roundedValue.toFixed(precision);
 }
 $(document).ready(() => {
+  function setProfileData(username, profileImage) {
+    $('#profileUsername').text(username);
+    $('#profileImage').attr('src', profileImage);
+  }
+
+  // Fetch profile data
+  fetch('https://www.1337rank.live/profile')
+    .then(response => response.json())
+    .then(data => {
+      const { username, profileLink, profileImage } = data;
+      setProfileData(username, profileImage);
+
+      // Link the username to the profile link
+      $('#profileUsername').wrap($('<a>').attr('href', profileLink));
+    })
+    .catch(error => {
+      console.error('Error fetching profile data:', error);
+    });
   $('#toggleSearchBtn').click(() => {
     $('#searchInput').toggle();
   });
@@ -21,7 +39,6 @@ $(document).ready(() => {
   let usersData = []; // Declare usersData globally
   
   function fetchUsers() {
-    console.log("first");
     fetch('https://www.1337rank.live/fetch')
     .then(response => response.json())
     .then(data => {
@@ -31,7 +48,7 @@ $(document).ready(() => {
       users.forEach(function (user) {
         i++;
         const login = user.user.login;
-
+        
         if (!usersData.includes(login)) {
           const mark = roundNumber(user.final_mark, 2);
           const level = roundNumber(user.level, 2);
@@ -64,6 +81,7 @@ $(document).ready(() => {
     .catch(error => {
       console.error('Error:', error);
     });
+    
   }
   
   searchInput.on('input', () => {
@@ -79,7 +97,6 @@ $(document).ready(() => {
     tbody.empty();
 
     // Filter the users based on the search term
-    console.log(usersData);
     const filteredUsers = usersData.filter(user => {
       const name = user.user.login.toLowerCase();
       const firstName = user.user.first_name.toLowerCase();
