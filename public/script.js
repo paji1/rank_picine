@@ -50,7 +50,6 @@ $(document).ready(() => {
         const login = user.user.login;
         
         if (!usersData.includes(login)) {
-          const mark = roundNumber(user.final_mark, 2);
           const level = roundNumber(user.level, 2);
           let image_link = user.user.image.versions.small;
           if (image_link == null) {
@@ -65,15 +64,12 @@ $(document).ready(() => {
           const i_Td = $('<td>').text(i);
           const loginTd = $('<td>').text(login).addClass('login');
           const levelTd = $('<td>').text(level);
-          const markTd = $('<td>').text(mark);
           const imageTd = $('<td>').append($('<img>').attr('src', image_link));
-          if (user['validated?']) {
-            tr.addClass('validated-user');
-          }
+          
           user.id = i;
           usersData.push(user);
           fetchedatalogin.push(login);
-          tr.append(i_Td, loginTd, levelTd, markTd,imageTd);
+          tr.append(i_Td, loginTd, levelTd, imageTd);
           tbody.append(tr);
         }
       });
@@ -110,7 +106,6 @@ $(document).ready(() => {
     // Render the filtered users in the table
     filteredUsers.forEach((user, index) => {
       const login = user.user.login;
-      const mark = roundNumber(user.final_mark, 2);
       const level = roundNumber(user.level, 2);
 
       const image_link = user.user.image.versions.small;
@@ -123,16 +118,12 @@ $(document).ready(() => {
         const i_Td = $('<td>').text(user.id);
         const loginTd = $('<td>').text(login).addClass('login');
         const levelTd = $('<td>').text(level);
-        const markTd = $('<td>').text(mark);
         const imageTd = $('<td>').append($('<img>').attr('src', image_link));
-        if (user['validated?']) {
-          tr.addClass('validated-user');
-        }
         fetchedUsers.push(login);
 
-
-        tr.append(i_Td, loginTd, levelTd, markTd, imageTd);
+        tr.append(i_Td, loginTd, levelTd, imageTd);
         tbody.append(tr);
+        console.log("sone");
       }
     });
 
