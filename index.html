@@ -96,6 +96,7 @@
       outline: none;
       border-color: #337ab7;
     }
+
     .navbar {
       background-color: #2c3e50;
       overflow: hidden;
@@ -103,7 +104,8 @@
       border-radius: 8px;
       margin: 0 auto;
       max-width: 600px;
-      justify-content: space-between; /* To separate the links and the profile */
+      justify-content: space-between;
+      /* To separate the links and the profile */
       align-items: center;
     }
 
@@ -125,6 +127,7 @@
       background-color: #4CAF50;
       color: white;
     }
+
     .profile {
       display: flex;
       justify-content: right;
@@ -138,12 +141,30 @@
       border-radius: 50%;
       margin-right: 1px;
     }
+
     .profile span {
       align-items: center;
       margin-right: 10px;
-      margin-top:  10px;
+      margin-top: 10px;
     }
 
+    .add-button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .add-button:hover {
+      background-color: #45a049;
+    }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/btn.css">
@@ -164,27 +185,35 @@
     </div>
   </div>
   <div class="table-container">
-    
-    <table >
+
+    <table>
       <newtr>
         <th>Rank</th>
         <th>Login</th>
         <th>Level</th>
         <th>Image</th>
-      <newtr>
-      </table>
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search by name or lastname or login">
-      </div>
-      <table id="userTable">
-        <tbody>
-          <!-- User data will be populated here -->
-        </tbody>
-      </table>
-      
-      <div id="loadingIndicator">Loading...</div>
-      <button onclick="topFunction()" id="myBtn"  title="Go to top"></button>
+        <newtr>
+    </table>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search by name or lastname or login">
     </div>
+    <table id="userTable">
+      <tbody>
+        <!-- User data will be populated here -->
+      </tbody>
+    </table>
+
+    <div id="loadingIndicator">Loading...</div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top"></button>
+  </div>
+  <div id="confirmationDialog" class="popup">
+    <div class="popup-content">
+      <span class="close-popup">&times;</span>
+      <p id="popupMessage"></p> 
+      <button id="confirmBtn">Confirm</button>
+      <button id="cancelBtn">Cancel</button>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="/script.js"></script>
