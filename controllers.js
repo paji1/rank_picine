@@ -13,8 +13,7 @@ const CURSUS_ID = process.env.CURSUS_ID;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const REDIRECT_URL = process.env.REDIRECT_URL;
 const API_URL= process.env.API_URL;
-
-
+let done = false;
 
 async function callback(req, res) {
 	const code = req.query.code;
