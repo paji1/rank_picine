@@ -12,7 +12,7 @@ const PORT = 80;
 
 // Configure express session
 app.use(session({
-  secret: 'hello-world123',
+  secret: 'really_machi_howa',
   resave: false,
   saveUninitialized: true,
 }));
