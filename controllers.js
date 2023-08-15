@@ -13,7 +13,6 @@ const CURSUS_ID = process.env.CURSUS_ID;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const REDIRECT_URL = process.env.REDIRECT_URL;
 const API_URL= process.env.API_URL;
-let done = false;
 
 async function callback(req, res) {
 	const code = req.query.code;
@@ -95,8 +94,8 @@ async function profile(req, res) {
 function fetch(req, res) {
 	try {
 		
-		if (done == true)
-		{
+		// if (done == true)
+		// {
 	
 		  const filePath = path.join(__dirname, "usersData.json");
 		  res.sendFile(filePath, (err) => {
@@ -105,7 +104,7 @@ function fetch(req, res) {
 			  res.status(500).send('Internal Server Error');
 			}	
 		  });
-		}
+		// }
 		
 		
 	  } catch (error) {
