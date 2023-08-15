@@ -45,7 +45,7 @@ $(document).ready(() => {
   }
 
   // Fetch profile data
-  fetch('http://localhost/profile')
+  fetch('https://www.1337rank.live/profile')
     .then(response => response.json())
     .then(data => {
       const { username, profileLink, profileImage } = data;
@@ -69,7 +69,7 @@ $(document).ready(() => {
   let usersData = []; // Declare usersData globally
 
   function fetchUsers() {
-    fetch('http://localhost/fetch')
+    fetch('https://www.1337rank.live/fetch')
       .then(response => response.json())
       .then(data => {
         const users = data;
