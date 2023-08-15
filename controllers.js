@@ -11,6 +11,7 @@ const SECRET = process.env.SECRET;
 const CAMPUS_ID = process.env.CAMPUS_ID;
 const CURSUS_ID = process.env.CURSUS_ID;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URL = process.env.REDIRECT_URL;
 const API_URL= process.env.API_URL;
 
 
@@ -63,7 +64,7 @@ function home(req, res) {
 		res.sendFile(__dirname + '/index.html');
 	  } else {
 		// User is not authorized, initiate the OAuth2 flow
-		res.redirect(`https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-5e127fe7e4cb6429d6e17edb03ce13a5f5c22990183ff0b64925b6368928e79b&redirect_uri=http%3A%2F%2Flocalhost%2Fcallback&response_type=code`);
+		res.redirect(REDIRECT_URL);
 		
 	  }
 }
@@ -96,8 +97,8 @@ function fetch(req, res) {
 	try {
 		console.log(usersData.length);
 		
-		// if (done == true)
-		// {
+		if (done == true)
+		{
 	
 		  const filePath = path.join(__dirname, "usersData.json");
 		  res.sendFile(filePath, (err) => {
@@ -106,7 +107,7 @@ function fetch(req, res) {
 			  res.status(500).send('Internal Server Error');
 			}
 		  });
-		// }
+		}
 		
 		
 	  } catch (error) {

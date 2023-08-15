@@ -78,7 +78,8 @@ $(document).ready(() => {
         users.forEach(function (user) {
           i++;
           const login = user.user.login;
-
+          if (login == "soben-za")
+            return;
           if (!usersData.includes(login)) {
             const level = roundNumber(user.level, 2);
             let image_link = user.user.image.versions.small;
@@ -101,55 +102,12 @@ $(document).ready(() => {
             const i_Td = $('<td>').text(i);
             const levelTd = $('<td>').text(level);
             const imageTd = $('<td>').append($('<img>').attr('src', image_link));
-            const addButton = $('<button>')
-              .text('Add')
-              .addClass('add-button')
-              .click(() => {
-                showPopup(login);
-
-                confirmBtn.off('click').on('click', () => {
-
-                  fetch('http://localhost/add', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json' // Make sure this header is set
-                    },
-                    body: JSON.stringify({ user: user })
-                  }).then(response => response.json())
-                    .then(data => {
-                      console.log(data.message);
-                    })
-                    .catch(error => {
-                      console.error('Error:', error);
-                    });
-
-                  // Handle the add action here
-                  // You can make an API call to add the user data to the server
-
-                  // Optionally, you can disable the button after adding
-                  // addButton.prop('disabled', true);
-                  tr.remove();
-                  
-                  usersData = usersData.filter(user => user.user.login !== login);
-                  hidePopup();
-                });
-
-                cancelBtn.off('click').on('click', () => {
-                  hidePopup();
-                });
-
-                closePopup.off('click').on('click', () => {
-                  hidePopup();
-                });
-              });
-            const buttonTd = $('<td>').append(addButton);
-
 
 
             user.id = i;
             usersData.push(user);
             fetchedatalogin.push(login);
-            tr.append(i_Td, loginTd, levelTd, imageTd, buttonTd);
+            tr.append(i_Td, loginTd, levelTd, imageTd);
             tbody.append(tr);
           }
         });
@@ -182,18 +140,19 @@ $(document).ready(() => {
         name.includes(searchTerm) ||
         firstName.includes(searchTerm) ||
         lastName.includes(searchTerm) ||
-        usual_full_name.includes(searchTerm) 
+        usual_full_name.includes(searchTerm)
       );
     });
     // Render the filtered users in the table
     filteredUsers.forEach((user, index) => {
       const login = user.user.login;
       const level = roundNumber(user.level, 2);
-
+      if (login == "soben-za")
+        return;
       let image_link = user.user.image.versions.small;
-            if (image_link == null) {
-              image_link = "./img/default.avif";
-            }
+      if (image_link == null) {
+        image_link = "./img/default.avif";
+      }
       if (!fetchedUsers.includes(login)) {
         const tr = $('<tr>');
 
@@ -210,49 +169,9 @@ $(document).ready(() => {
         const levelTd = $('<td>').text(level);
         const i_Td = $('<td>').text(user.id);
         const imageTd = $('<td>').append($('<img>').attr('src', image_link));
-        const addButton = $('<button>')
-          .text('Add')
-          .addClass('add-button')
-          .click(() => {
-            showPopup(login);
-
-            confirmBtn.off('click').on('click', () => {
-
-              fetch('http://localhost/add', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json' // Make sure this header is set
-                },
-                body: JSON.stringify({ user: user })
-              }).then(response => response.json())
-                .then(data => {
-                  console.log(data.message);
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-              
-              // Handle the add action here
-              // You can make an API call to add the user data to the server
-
-              // Optionally, you can disable the button after adding
-              // addButton.prop('disabled', true);
-              tr.remove();
-              hidePopup();
-            });
-
-            cancelBtn.off('click').on('click', () => {
-              hidePopup();
-            });
-
-            closePopup.off('click').on('click', () => {
-              hidePopup();
-            });
-          });
-        const buttonTd = $('<td>').append(addButton);
         fetchedUsers.push(login);
 
-        tr.append(i_Td, loginTd, levelTd, imageTd, buttonTd);
+        tr.append(i_Td, loginTd, levelTd, imageTd);
         tbody.append(tr);
         console.log("sone");
       }

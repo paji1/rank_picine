@@ -12,12 +12,12 @@ const CURSUS_ID = process.env.CURSUS_ID;
 const RANGE_CREATED_AT = process.env.RANGE_CREATED_AT;
 const PAGE_SIZE = process.env.PAGE_SIZE;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const REDIRECT_URL = process.env.REDIRECT_URL;
 const API_URL= process.env.API_URL;
 
 global.usersData = [];
 async function getAccessToken() {
 	try {
-		console.log(ACCESS_TOKEN_URL);
 		const response = await axios.post(ACCESS_TOKEN_URL, null, {
 			params: {
 				grant_type: 'client_credentials',
@@ -99,6 +99,10 @@ function fetchUsersInBackground() {
 	});
 }
 
+fetchUsersInBackground();
+
+// Run the background task to fetch users' data periodically every 1 hour
+setInterval(fetchUsersInBackground,  4 * 60 * 1000);
 module.exports = {
 	getAccessToken,
 	getUsers,
