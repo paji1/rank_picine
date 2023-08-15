@@ -94,7 +94,6 @@ async function profile(req, res) {
 
 function fetch(req, res) {
 	try {
-		console.log(usersData.length);
 		
 		if (done == true)
 		{
@@ -104,7 +103,7 @@ function fetch(req, res) {
 			if (err) {
 			  console.error('Error sending file:', err);
 			  res.status(500).send('Internal Server Error');
-			}
+			}	
 		  });
 		}
 		
