@@ -29,11 +29,16 @@
         <th>Login</th>
         <th>Level</th>
         <th>Image</th>
-        <newtr>
+      </newtr>
     </table>
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search by name or lastname or login">
     </div>
+    <table id="userTable2">
+      <tbody>
+        <!-- User data will be populated here -->
+      </tbody>
+    </table>
     <table id="userTable">
       <tbody>
         <!-- User data will be populated here -->
@@ -46,7 +51,7 @@
   <div id="confirmationDialog" class="popup">
     <div class="popup-content">
       <span class="close-popup">&times;</span>
-      <p id="popupMessage"></p> 
+      <p id="popupMessage"></p>
       <button id="confirmBtn">Confirm</button>
       <button id="cancelBtn">Cancel</button>
     </div>

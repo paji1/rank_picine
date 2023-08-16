@@ -65,6 +65,7 @@ $(document).ready(() => {
   const searchResults = $('#searchResults');
 
   const tbody = $('#userTable tbody');
+  const ttbody = $('#userTable2 tbody');
   let pageLimit = 1;
   let usersData = []; // Declare usersData globally
 
@@ -99,16 +100,24 @@ $(document).ready(() => {
                 const url = 'https://profile.intra.42.fr/users/' + login; // Replace with your desired URL
                 redirectTo(url);
               });
-            const i_Td = $('<td>').text(i);
+            const i_Td = $('<td>').text(i).addClass('id');
             const levelTd = $('<td>').text(level);
             const imageTd = $('<td>').append($('<img>').attr('src', image_link));
 
 
+            
             user.id = i;
+            if (user.id  == 1)
+            {
+              i_Td.append(' ⭐'); // Add star emoji
+            }
             usersData.push(user);
             fetchedatalogin.push(login);
             tr.append(i_Td, loginTd, levelTd, imageTd);
-            tbody.append(tr);
+            if (i <= 3)
+              ttbody.append(tr);
+            else
+              tbody.append(tr);
           }
         });
       })
