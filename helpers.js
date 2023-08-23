@@ -1,5 +1,6 @@
 // @ts-nocheck
 const axios = require('axios');
+const { time } = require('console');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -13,7 +14,7 @@ const RANGE_CREATED_AT = process.env.RANGE_CREATED_AT;
 const PAGE_SIZE = process.env.PAGE_SIZE;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const REDIRECT_URL = process.env.REDIRECT_URL;
-const API_URL= process.env.API_URL;
+const API_URL = process.env.API_URL;
 
 global.usersData = [];
 async function getAccessToken() {
@@ -64,6 +65,9 @@ async function getUsers(accessToken, page = 1) {
 		throw error;
 	}
 }
+function delay(time) {
+	return new Promise(resolve => setTimeout(resolve, time));
+}
 async function fetchAllUsers() {
 	try {
 
@@ -73,10 +77,13 @@ async function fetchAllUsers() {
 		while (true) {
 			const response = await getUsers(accessToken, page);
 			usersData.push(...response);
-
-			if (response.length < PAGE_SIZE) {
+			
+			await delay(500);
+			if (response.length == 0) {
 				usersData.push(...response);
-				break; // Stop fetching if the response length is less than PAGE_SIZE
+				if (usersData.length > 300) {
+					break; // Stop fetching if the response length is less than PAGE_SIZE
+				}
 			}
 
 			page++;
@@ -91,10 +98,10 @@ async function fetchAllUsers() {
 		throw error;
 	}
 }
-function fetchUsersInBackground() {
+async function fetchUsersInBackground() {
 	usersData = [];
 
-	fetchAllUsers().catch((error) => {
+	await fetchAllUsers().catch((error) => {
 		console.error('Error in background task:', error.message);
 	});
 }
@@ -102,7 +109,7 @@ function fetchUsersInBackground() {
 fetchUsersInBackground();
 
 // Run the background task to fetch users' data periodically every 1 hour
-setInterval(fetchUsersInBackground,  4 * 60 * 1000);
+setInterval(fetchUsersInBackground, 4 * 60 * 1000);
 module.exports = {
 	getAccessToken,
 	getUsers,

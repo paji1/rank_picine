@@ -138,6 +138,7 @@ $(document).ready(() => {
     let fetchedUsers = [];
     // Clear the table body
     tbody.empty();
+    ttbody.empty();
 
     // Filter the users based on the search term
     const filteredUsers = usersData.filter(user => {
