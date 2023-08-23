@@ -96,14 +96,20 @@ function fetch(req, res) {
 		
 		// if (done == true)
 		// {
-			
-		  const filePath = path.join(__dirname, "usersData.json");
-		  res.sendFile(filePath, (err) => {
-			if (err) {
-			  console.error('Error sending file:', err);
-			  res.status(500).send('Internal Server Error');
-			}	
-		  });
+			if(req.session.accessToken){
+				// User is already authorized, redirect to another route or send response
+				const filePath = path.join(__dirname, "usersData.json");
+				res.sendFile(filePath, (err) => {
+				  if (err) {
+					console.error('Error sending file:', err);
+					res.status(500).send('Internal Server Error');
+				  }	
+				});
+			  } else {
+				// User is not authorized, initiate the OAuth2 flow
+				res.redirect(REDIRECT_URL);
+				
+			  }
 		// }
 		
 		
