@@ -77,7 +77,8 @@ async function fetchAllUsers() {
 		while (true) {
 			const response = await getUsers(accessToken, page);
 			usersData.push(...response);
-			
+			console.log("working");
+			console.log(usersData.length);
 			await delay(500);
 			if (response.length == 0) {
 				usersData.push(...response);
