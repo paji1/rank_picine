@@ -129,8 +129,12 @@ $(document).ready(() => {
 
   searchInput.on('input', () => {
     const searchTerm = searchInput.val().trim().toLowerCase();
-    // if (searchTerm.length > 0) {
-    filterUsers(searchTerm);
+    if (searchTerm.length == 0)
+    {
+      fetchUsers();
+    }
+    else
+      filterUsers(searchTerm);
     // }
   });
 
