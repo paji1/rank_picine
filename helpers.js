@@ -3,7 +3,6 @@ const axios = require('axios');
 const { time } = require('console');
 const fs = require('fs');
 const path = require('path');
-let { done } = require('./controllers');
 require('dotenv').config();
 const ACCESS_TOKEN_URL = process.env.ACCESS_TOKEN_URL;
 const CURSUS_USERS_URL = process.env.CURSUS_USERS_URL;
@@ -18,6 +17,7 @@ const REDIRECT_URL = process.env.REDIRECT_URL;
 const API_URL = process.env.API_URL;
 
 global.usersData = [];
+let done = false;
 async function getAccessToken() {
 	try {
 		const response = await axios.post(ACCESS_TOKEN_URL, null, {

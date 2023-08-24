@@ -1,10 +1,11 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const { fetchAllUsers } = require('./helpers');
+// const { fetchAllUsers } = require('./helpers');
 require('dotenv').config();
+let { done } = require('./helpers');
 
-let done = false;
+
 
 
 const ACCESS_TOKEN_URL = process.env.ACCESS_TOKEN_URL;
