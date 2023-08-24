@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 // const { fetchAllUsers } = require('./helpers');
 require('dotenv').config();
-let { done } = require('./helpers');
+let { sharedState } = require('./helpers');
 
 
 
@@ -47,8 +47,7 @@ async function callback(req, res) {
 		// fetchAllUsers();
 	  }
 	  req.session.accessToken = accessToken;
-	  done=  false;
-	  // console.log(response_user.data);
+	  sharedState.done = false;	  // console.log(response_user.data);
 	  // Use the obtained access token for further API requests
 	  // ...
 	  res.redirect('/');
@@ -64,9 +63,9 @@ function home(req, res) {
 		// User is already authorized, redirect to another route or send response
 		res.sendFile(__dirname + '/index.html');
 	} else {
-		console.log(`done ${done}`);
+		console.log(`done ${sharedState.done}`);
 		// User is not authorized, initiate the OAuth2 flow
-		if (done === true)
+		if (sharedState.done === true)
 			res.redirect(REDIRECT_URL);
 		else
 			res.sendFile(__dirname + '/error.html');

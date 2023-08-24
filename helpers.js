@@ -17,7 +17,9 @@ const REDIRECT_URL = process.env.REDIRECT_URL;
 const API_URL = process.env.API_URL;
 
 global.usersData = [];
-let done = false;
+const sharedState = {
+	done: false
+  };
 async function getAccessToken() {
 	try {
 		const response = await axios.post(ACCESS_TOKEN_URL, null, {
@@ -90,7 +92,7 @@ async function fetchAllUsers() {
 
 			page++;
 		}
-		done = true;
+		sharedState.done = true;
 		fs.writeFileSync(`usersData.json`, '');
 		fs.writeFileSync(`usersData.json`, JSON.stringify(usersData));
 
@@ -113,7 +115,7 @@ fetchUsersInBackground();
 // Run the background task to fetch users' data periodically every 1 hour
 setInterval(fetchUsersInBackground, 2 * 60 * 1000);
 module.exports = {
-	done,
+	sharedState,
 	getAccessToken,
 	getUsers,
 	fetchAllUsers,
