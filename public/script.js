@@ -2,7 +2,7 @@ let fetchedatalogin = [];
 let i = 0;
 const refreshInterval = setInterval(() => {
   location.reload();
-}, 3000);;
+}, 800);;
 function redirectTo(url) {
   window.location.href = url;
 }
