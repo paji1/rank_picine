@@ -4,6 +4,9 @@ const path = require('path');
 const { fetchAllUsers } = require('./helpers');
 require('dotenv').config();
 
+let done = false;
+
+
 const ACCESS_TOKEN_URL = process.env.ACCESS_TOKEN_URL;
 const CURSUS_USERS_URL = process.env.CURSUS_USERS_URL;
 const UID = process.env.UID;
@@ -62,8 +65,8 @@ function home(req, res) {
 		res.sendFile(__dirname + '/index.html');
 	  } else {
 		// User is not authorized, initiate the OAuth2 flow
-		res.redirect(REDIRECT_URL);
-		
+		if (done == true)
+			res.redirect(REDIRECT_URL);
 	  }
 }
 
