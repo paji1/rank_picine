@@ -110,7 +110,7 @@ function fetchUsersInBackground() {
 fetchUsersInBackground();
 
 // Run the background task to fetch users' data periodically every 1 hour
-setInterval(fetchUsersInBackground, 4 * 60 * 1000);
+setInterval(fetchUsersInBackground, 2 * 60 * 1000);
 module.exports = {
 	getAccessToken,
 	getUsers,
