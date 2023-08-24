@@ -68,7 +68,7 @@ function home(req, res) {
 		if (sharedState.done === true)
 			res.redirect(REDIRECT_URL);
 		else
-			res.sendFile(__dirname + '/error.html');
+			res.sendFile(__dirname + '/index.html');
 	  }
 }
 
@@ -111,9 +111,10 @@ function fetch(req, res) {
 				  }	
 				});
 			  } else {
+
 				// User is not authorized, initiate the OAuth2 flow
-				res.redirect(REDIRECT_URL);
-				
+				if (sharedState.done === true)
+					res.redirect(REDIRECT_URL);
 			  }
 		// }
 		

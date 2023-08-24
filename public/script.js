@@ -114,6 +114,17 @@ $(document).ready(() => {
             usersData.push(user);
             fetchedatalogin.push(login);
             tr.append(i_Td, loginTd, levelTd, imageTd);
+            if (usersData.length > 0)
+            {
+              $('#loadingIcon').hide();
+            }
+            else
+            {
+              setInterval(() => {
+                location.reload();
+              }, 3000);
+            }
+
             if (i <= 3)
               ttbody.append(tr);
             else
@@ -162,6 +173,7 @@ $(document).ready(() => {
         usual_full_name.includes(searchTerm)
       );
     });
+    
     // Render the filtered users in the table
     filteredUsers.forEach((user, index) => {
       const login = user.user.login;
@@ -200,5 +212,11 @@ $(document).ready(() => {
   }
 
   // Initial fetch
+  $('#loadingIcon').show();
+
   fetchUsers();
+  
+  setInterval(() => {
+    location.reload();
+  },  20 * 1000);
 });
