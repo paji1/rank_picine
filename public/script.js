@@ -1,5 +1,8 @@
 let fetchedatalogin = [];
 let i = 0;
+const refreshInterval = setInterval(() => {
+  location.reload();
+}, 3000);;
 function redirectTo(url) {
   window.location.href = url;
 }
@@ -117,13 +120,9 @@ $(document).ready(() => {
             if (usersData.length > 0)
             {
               $('#loadingIcon').hide();
+              clearInterval(refreshInterval);
             }
-            else
-            {
-              setInterval(() => {
-                location.reload();
-              }, 3000);
-            }
+
 
             if (i <= 3)
               ttbody.append(tr);
