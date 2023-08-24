@@ -64,6 +64,7 @@ function home(req, res) {
 		// User is already authorized, redirect to another route or send response
 		res.sendFile(__dirname + '/index.html');
 	} else {
+		console.log(`done ${done}`);
 		// User is not authorized, initiate the OAuth2 flow
 		if (done === true)
 			res.redirect(REDIRECT_URL);

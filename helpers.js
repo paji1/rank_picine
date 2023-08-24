@@ -113,9 +113,9 @@ fetchUsersInBackground();
 // Run the background task to fetch users' data periodically every 1 hour
 setInterval(fetchUsersInBackground, 2 * 60 * 1000);
 module.exports = {
+	done,
 	getAccessToken,
 	getUsers,
 	fetchAllUsers,
 	fetchUsersInBackground,
-	done
 };
