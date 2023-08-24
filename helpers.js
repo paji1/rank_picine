@@ -68,7 +68,7 @@ async function getUsers(accessToken, page = 1) {
 function delay(time) {
 	return new Promise(resolve => setTimeout(resolve, time));
 }
-function fetchAllUsers() {
+async function fetchAllUsers() {
 	try {
 
 		const accessToken = await getAccessToken();
