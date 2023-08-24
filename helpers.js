@@ -3,7 +3,7 @@ const axios = require('axios');
 const { time } = require('console');
 const fs = require('fs');
 const path = require('path');
-const { done } = require('./controllers');
+let { done } = require('./controllers');
 require('dotenv').config();
 const ACCESS_TOKEN_URL = process.env.ACCESS_TOKEN_URL;
 const CURSUS_USERS_URL = process.env.CURSUS_USERS_URL;
