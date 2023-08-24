@@ -129,13 +129,18 @@ $(document).ready(() => {
 
   searchInput.on('input', () => {
     const searchTerm = searchInput.val().trim().toLowerCase();
-    if (searchTerm.length == 0)
+    if (searchTerm.length === 0)
     {
+      tbody.empty();
+      ttbody.empty();
+      i = 0;
       fetchUsers();
     }
     else
+    {
+
       filterUsers(searchTerm);
-    // }
+    }
   });
 
   function filterUsers(searchTerm) {
