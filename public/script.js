@@ -215,7 +215,5 @@ $(document).ready(() => {
 
   fetchUsers();
   
-  setInterval(() => {
-    location.reload();
-  },  20 * 1000);
+
 });
