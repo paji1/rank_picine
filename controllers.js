@@ -56,7 +56,6 @@ async function callback(req, res) {
 	} catch (error) {
 	  console.error('callback Error:', error.message);
 	  // res.status(500).send('An error occurred during authorization.');
-	  res.sendFile(__dirname + '/error.html');
 	}
 }
 
@@ -64,10 +63,12 @@ function home(req, res) {
 	if(req.session.accessToken){
 		// User is already authorized, redirect to another route or send response
 		res.sendFile(__dirname + '/index.html');
-	  } else {
+	} else {
 		// User is not authorized, initiate the OAuth2 flow
-		if (done == true)
+		if (done === true)
 			res.redirect(REDIRECT_URL);
+		else
+			res.sendFile(__dirname + '/error.html');
 	  }
 }
 
