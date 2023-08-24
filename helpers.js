@@ -68,7 +68,7 @@ async function getUsers(accessToken, page = 1) {
 function delay(time) {
 	return new Promise(resolve => setTimeout(resolve, time));
 }
-async function fetchAllUsers() {
+function fetchAllUsers() {
 	try {
 
 		const accessToken = await getAccessToken();
@@ -99,10 +99,10 @@ async function fetchAllUsers() {
 		throw error;
 	}
 }
-async function fetchUsersInBackground() {
+function fetchUsersInBackground() {
 	usersData = [];
 
-	await fetchAllUsers().catch((error) => {
+	fetchAllUsers().catch((error) => {
 		console.error('Error in background task:', error.message);
 	});
 }
