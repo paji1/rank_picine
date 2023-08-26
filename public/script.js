@@ -2,7 +2,7 @@ let fetchedatalogin = [];
 let i = 0;
 const refreshInterval = setInterval(() => {
   location.reload();
-}, 800);;
+}, 2000);;
 function redirectTo(url) {
   window.location.href = url;
 }
@@ -58,6 +58,7 @@ $(document).ready(() => {
       $('#profileUsername').wrap($('<a>').attr('href', profileLink));
     })
     .catch(error => {
+      setProfileData("not-found", "./img/default.avif");
       console.error('Error fetching profile data:', error);
     });
   $('#toggleSearchBtn').click(() => {
