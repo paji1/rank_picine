@@ -47,7 +47,6 @@ async function callback(req, res) {
 		// fetchAllUsers();
 	  }
 	  req.session.accessToken = accessToken;
-	  sharedState.done = false;	  // console.log(response_user.data);
 	  // Use the obtained access token for further API requests
 	  // ...
 	  res.redirect('/');
